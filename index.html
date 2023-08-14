@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta charset="utf-8">
+    <link rel="icon" href="./favicon.ico">
+    <title>AreaZero Studio</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: black;
+            height: 90vh;
+        }
+
+        span {
+            display: inline-block;
+        }
+
+        .logo-img {
+            width: 50%;
+        }
+
+        .logo-container {
+            text-align: center;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        * {
+            color: white;
+            font-size: 14px;
+            font-family: "nfont";
+        }
+
+        #click-tip {
+            animation: lights 3s ease-in-out infinite;
+            margin-top: 15px;
+        }
+
+        @font-face {
+            font-family: "nfont";
+            src: url(./fonts/syht.otf);
+        }
+
+        @keyframes lights {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(-10px);
+            }
+
+            50% {
+                transform: translateY(10px);
+            }
+
+            100% {
+                transform: translateY(-10px);
+            }
+        }
+
+        #nbpl {
+            display: none;
+            width: 80%;
+            height: 80%;
+            border: none;
+            outline: none;
+            background: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="logo-container">
+        <img class="logo-img" src="./img/logo.svg"><br>
+        <span id="click-tip">&lt;&nbsp;&nbsp;点击鼠标以继续&nbsp;&nbsp;&gt;</span>
+    </div>
+    <video id="nbpl" autoplay></video>
+    <script>
+        var step = 0;
+        document.addEventListener(
+            "click",
+            function () {
+                if (step < 1) {
+                    document.querySelector(".logo-container").animate(
+                        {
+                            transform: "scale(1.5)",
+                            opacity: 0
+                        },
+                        {
+                            duration: 500,
+                            easing: "ease-out"
+                        }
+                    ).onfinish = function () {
+                        document.querySelector(".logo-container").remove();
+                        setTimeout(() => {
+                            document.querySelector("#nbpl").src = "https://vdse.bdstatic.com/192d9a98d782d9c74c96f09db9378d93.mp4";
+                            document.querySelector("#nbpl").style.display = "block";
+                        }, 1000);
+                    };
+                    step += 1;
+                };
+            }
+        )
+        document.addEventListener(
+            "mousedown",
+            function (e) {
+                let block = document.createElement("div");
+                let rBlock1 = document.createElement("div");
+                let circle = document.createElement("div");
+                block.style.position = "fixed";
+                block.style.width = "10px";
+                block.style.height = "10px";
+                block.style.opacity = "0";
+                block.style.background = "none";
+                block.style.border = "1px solid gray";
+                block.style.left = `${e.clientX - 5}px`;
+                block.style.top = `${e.clientY - 5}px`;
+                block.style.boxShadow = "0 0 2px rgba(255, 255, 255, 0.7)";
+                rBlock1.style.position = "fixed";
+                rBlock1.style.width = "10px";
+                rBlock1.style.height = "10px";
+                rBlock1.style.opacity = "0";
+                rBlock1.style.background = "none";
+                rBlock1.style.border = "1px solid gray";
+                rBlock1.style.left = `${e.clientX - 5}px`;
+                rBlock1.style.top = `${e.clientY - 5}px`;
+                circle.style.position = "fixed";
+                circle.style.width = "10px";
+                circle.style.height = "10px";
+                circle.style.opacity = "0";
+                circle.style.background = "none";
+                circle.style.border = "1px solid gray";
+                circle.style.left = `${e.clientX - 5}px`;
+                circle.style.top = `${e.clientY - 5}px`;
+                circle.style.borderRadius = "50%";
+                circle.style.transform = "scale(5)";
+                document.body.appendChild(block);
+                document.body.appendChild(rBlock1);
+                document.body.appendChild(circle);
+                block.animate(
+                    [
+                        {
+                            transform: "none",
+                            opacity: "0"
+                        },
+                        {
+                            transform: "scale(2)",
+                            opacity: "1"
+                        },
+                        {
+                            transform: "scale(4)",
+                            opacity: "0"
+                        }
+                    ],
+                    {
+                        duration: 500,
+                        easing: "ease-out"
+                    }
+                ).onfinish = function () {
+                    block.remove();
+                };
+                rBlock1.animate(
+                    [
+                        {
+                            transform: "none",
+                            opacity: "0"
+                        },
+                        {
+                            transform: "scale(3) rotate(40deg)",
+                            opacity: "1"
+                        },
+                        {
+                            transform: "scale(6) rotate(80deg)",
+                            opacity: "0"
+                        }
+                    ],
+                    {
+                        duration: 500,
+                        easing: "ease-out"
+                    }
+                ).onfinish = function () {
+                    rBlock1.remove();
+                };
+                circle.animate(
+                    [
+                        {
+                            transform: "scale(5)",
+                            opacity: "0"
+                        },
+                        {
+                            transform: "scale(3)",
+                            opacity: "1"
+                        },
+                        {
+                            transform: "scale(1)",
+                            opacity: "0"
+                        }
+                    ],
+                    {
+                        duration: 500,
+                        easing: "ease-out"
+                    }
+                ).onfinish = function () {
+                    circle.remove();
+                };
+            }
+        )
+    </script>
+</body>
+
+</html>
